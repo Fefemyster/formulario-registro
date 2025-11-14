@@ -8,18 +8,18 @@ export const Formulario = () => {
   const [valorEmail, setValorEmail] = useState("");
   const [valorPassword, setValorPassword] = useState("");
 
-  const [errorNombre, setErrorNombre] = useState("");
+  const [errorUsuario, setErrorUsuario] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
-  const [errorMensaje, setErrorMensaje] = useState("");
+  const [errorPassword, setErrorPassword] = useState("");
 
   const [mensajeExito, setMensajeExito] = useState("");
 
   const handleUsuario = (e: React.ChangeEvent<HTMLInputElement>) => {
     const valor = e.target.value;
-    if (!valor.trim()) setErrorNombre("El nombre es obligatorio");
+    if (!valor.trim()) setErrorUsuario("El nombre es obligatorio");
     else if (valor.length < 3)
-      setErrorNombre("Debe tener al menos 3 caracteres");
-    else setErrorNombre("");
+      setErrorUsuario("Debe tener al menos 3 caracteres");
+    else setErrorUsuario("");
     setValorUsuario(valor);
   };
 
@@ -44,19 +44,19 @@ export const Formulario = () => {
 
     const valor = e.target.value;
     if (!passwordRegex.test(valor))
-      setErrorMensaje(
+      setErrorPassword(
         "La contraseña no puede estar vacío y debe tener una mayuscula"
       );
     else if (valor.length < 6)
-      setErrorMensaje("Debe tener al menos 6 caracteres");
-    else setErrorMensaje("");
+      setErrorPassword("Debe tener al menos 6 caracteres");
+    else setErrorPassword("");
     setValorPassword(valor);
   };
 
   const formValido =
-    !errorNombre &&
+    !errorUsuario &&
     !errorEmail &&
-    !errorMensaje &&
+    !errorPassword &&
     valorUsuario &&
     valorEmail &&
     valorPassword;
@@ -65,16 +65,16 @@ export const Formulario = () => {
     e.preventDefault();
 
     //Mostrar mensaje de exito
-    setMensajeExito("¡Mensaje enviado correctamente!");
+    setMensajeExito(`¡Registro exitoso! ¡Bienvenido, ${valorUsuario}!`);
 
     // Resetear formulario
     setValorUsuario("");
     setValorEmail("");
     setValorPassword("");
 
-    setErrorNombre("");
+    setErrorUsuario("");
     setErrorEmail("");
-    setErrorMensaje("");
+    setErrorPassword("");
 
     // Quitar mensaje verde después de unos segundos
     setTimeout(() => {
@@ -88,15 +88,15 @@ export const Formulario = () => {
         className="max-w-lg mx-auto p-6 bg-white rounded-2xl shadow-md"
       >
         <Input
-          nombre={valorUsuario}
+          usuario={valorUsuario}
           email={valorEmail}
           password={valorPassword}
-          onNombreChange={handleUsuario}
+          onUserChange={handleUsuario}
           onEmailChange={handleEmail}
           onPasswordChange={handlePassword}
-          errorNombre={errorNombre}
+          errorUser={errorUsuario}
           errorEmail={errorEmail}
-          errorMensaje={errorMensaje}
+          errorPassword={errorPassword}
         />
 
         {mensajeExito && (
